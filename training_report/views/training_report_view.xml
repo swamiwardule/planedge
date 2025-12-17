@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="training_report_view_form">
+            <field name="name">training.report.form</field>
+            <field name="model">training.report</field>
+            <field name="arch" type="xml">
+                <form >
+                <sheet>
+                    <group>
+                    <group>
+                        <field name="project_info_id"/>
+                        <field name="user_id"/>
+                        <field name="topic_of_training"/>
+                        <field name="description"/>
+                        <field name="location"/>
+                        <field name="training_start_time" placeholder="HH:MM AM/PM" />
+                        <field name="total_duration"/>
+                    </group>
+                    <group>
+                        <field name="training_dated_on"/>
+                        <field name="tower_id"/>
+                        <field name="trainer_name"/>
+                        <field name="training_end_time" placeholder="HH:MM AM/PM" />
+                        <field name="total_manhours"/>
+                    </group>
+                </group>
+                     <group string="Training Details">
+                        <field name="training_report_line_ids">
+                            <tree editable="bottom">
+                                <field name="sr_no" string="Sr. No" invisible="1" />
+                                <field name="name"/>
+                                <field name="tag"/>
+
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Images">
+                        <field name="image_ids">
+                            <tree string="Images">
+                                <field name="image_name"/>
+                                <field name="image" widget="image"/>
+                            </tree>
+                            <form string="Image">
+                                <field name="image_name"/>
+                                <field name="image" widget="image"/>
+                            </form>
+                        </field>
+            </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="training_report_view_tree">
+            <field name="name">training.report.tree</field>
+            <field name="model">training.report</field>
+            <field name="arch" type="xml">
+                <tree string="Training Report">
+                      <field name="project_info_id"/>
+                        <field name="training_dated_on"/>
+                        <field name="topic_of_training"/>
+                        <field name="tower_id"/>
+                        <field name="location"/>
+                        <field name="trainer_name"/>  
+                </tree>
+            </field>
+    </record>
+
+        <record id="action_open_training_report" model="ir.actions.act_window">
+            <field name="name">Training Report</field>
+            <field name="res_model">training.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="training_report_view_tree"/>
+        </record>
+
+    <menuitem id="root_training_report" name="Training Report" />
+    <menuitem id="menu_training_report" name="Training Report" parent="root_training_report" action="action_open_training_report" />
+
+
+    </data>
+</odoo>
+		

@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="api_log_tree_id" model="ir.ui.view">
+        <field name="name">api.log.tree</field>
+        <field name="model">api.log</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Logs">
+                <field name="name"/>
+                <field name="api_name"/>
+                <field name="create_datetime"/>
+                <field name="state"/>
+                <field name="error"/>
+                <field name="message"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="api_log_form_id">
+        <field name="name">api.log.form</field>
+        <field name="model">api.log</field>
+        <field name="arch" type="xml">
+            <form>
+            <sheet>
+                <group>
+                    <group col="2">
+                       <field name="name" readonly="1"/>
+                        <field name="api_name" readonly="1"/>
+                        <field name="create_datetime" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                        <field name="error" readonly="1"/>
+                        <field name="message" readonly="1"/>
+                    </group>     
+                </group>                    
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+        <record id="action_api_log" model="ir.actions.act_window">
+        <field name="name">APi Logs</field>
+        <field name="res_model">api.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="api_log_tree_id"/>
+        </record>
+
+    <record id="bu_tree_id" model="ir.ui.view">
+        <field name="name">bu.tree</field>
+        <field name="model">business.unit</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Business Unit">
+                <field name="buId"/>
+                <field name="description"/>
+                <field name="type"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="bu_form_id">
+        <field name="name">bu.form</field>
+        <field name="model">business.unit</field>
+        <field name="arch" type="xml">
+            <form>
+            <sheet>
+                <group>
+                    <group col="2">
+                    <field name="buId"/>
+                    <field name="description"/>
+                    <field name="type"/>
+                    <field name="email"/>
+                    </group>     
+                </group>                    
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+        <record id="action_bu" model="ir.actions.act_window">
+        <field name="name">BU</field>
+        <field name="res_model">business.unit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="bu_tree_id"/>
+        </record>
+
+    <record id="sbu_tree_id" model="ir.ui.view">
+        <field name="name">sbu.tree</field>
+        <field name="model">sub.business.unit</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Sub Business Unit">
+                <field name="description"/>
+                <field name="type"/>
+                <field name="parentId"/>
+                <field name="segmentId"/>
+                <field name="subDescription"/>
+                <field name="subId"/>
+                <field name="buId"/>
+                <field name="vjd_bu_hie_id"/>
+                <field name="vjd_pro_hie_id"/>
+                <field name="project_state"/>
+                <field name="tower_state"/>
+            </tree>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="sbu_form_id">
+            <field name="name">sbu.form</field>
+            <field name="model">sub.business.unit</field>
+            <field name="arch" type="xml">
+                <form>
+                  <sheet>
+                    <group>
+                        <group>
+                         <field name="description"/>
+                            <field name="type"/>
+                            <field name="parentId"/>
+                            <field name="segmentId"/>
+                            <field name="subDescription"/>
+                        </group>
+                        <group>
+                    
+                            <field name="subId"/>
+                            <field name="buId"/>
+                            <field name="vjd_bu_hie_id"/>
+                            <field name="vjd_pro_hie_id"/>
+                            <field name="tower_type" readonly="0"/>
+                        </group>
+                           <group>
+                            <field name="project_state"/>
+                            <field name="tower_state"/>
+                            <field name="ff_state" attrs="{'invisible': [('tower_type', '=', 'development')]}"/>
+                        </group>
+                            <group>
+                                <field name="project_info_id"/>
+                                <field name="tower_id"/>
+                            </group>
+                        <group>
+                            <button name="create_project_towers" string="Create Project/Tower" type="object"  class="btn-primary"/>
+                            <button name="create_flats_floors" string="Create Flat/Floor" type="object" class="btn btn-primary me-1" attrs="{'invisible': [('tower_type', '=', 'development')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sbu" model="ir.actions.act_window">
+          <field name="name">SBU</field>
+        <field name="res_model">sub.business.unit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="sbu_tree_id"/>
+        </record>
+    
+    <record id="am_tree_id" model="ir.ui.view">
+        <field name="name">am.tree</field>
+        <field name="model">activity.master</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Activity Master">
+                <field name="activityId"/>
+                <field name="code"/>
+                <field name="uom"/>
+                <field name="description"/>
+                <field name="constructionActivityGroup"/>
+                <field name="constructionActivityGroupID"/>
+
+            </tree>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="am_form_id">
+            <field name="name">am.form</field>
+            <field name="model">activity.master</field>
+            <field name="arch" type="xml">
+                <form>
+                <sheet>
+                    <group>
+                        <group col="2">
+                       <field name="activityId"/>
+                <field name="code"/>
+                <field name="uom"/>
+                <field name="description"/>
+                <field name="constructionActivityGroup"/>
+                <field name="constructionActivityGroupID"/>
+
+                        </group>     
+                    </group>                    
+                </sheet>              
+            </form>
+            </field>
+        </record>
+
+        <record id="action_am" model="ir.actions.act_window">
+          <field name="name">Activit Master</field>
+        <field name="res_model">activity.master</field>
+        <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="am_tree_id"/>
+        </record>
+
+     <record id="im_tree_id" model="ir.ui.view">
+        <field name="name">im.tree</field>
+        <field name="model">item.master</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Item Master">
+                <field name="itemId"/>
+                <field name="itemName"/>
+                <field name="itemGroupId"/>
+                <field name="itemGroup"/>
+                <field name="itemTypeId"/>
+                <field name="itemType"/>
+                <field name="uMOId"/>
+                <field name="uMODesc"/>
+            </tree>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="im_form_id">
+            <field name="name">im.form</field>
+            <field name="model">item.master</field>
+            <field name="arch" type="xml">
+                <form>
+                <sheet>
+                    <group>
+                        <group col="2">
+                         <field name="itemId"/>
+                <field name="itemName"/>
+                <field name="itemGroupId"/>
+                <field name="itemGroup"/>
+                <field name="itemTypeId"/>
+                <field name="itemType"/>
+                <field name="uMOId"/>
+                <field name="uMODesc"/>
+                        </group>     
+                    </group>                    
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_im" model="ir.actions.act_window">
+          <field name="name">Item Master</field>
+        <field name="res_model">item.master</field>
+        <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="im_tree_id"/>
+        </record>
+
+    <record id="vjpo_tree_id" model="ir.ui.view">
+        <field name="name">vj.purchase.order.tree</field>
+        <field name="model">vj.purchase.order</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Order">
+                <field name="pid"/>
+                <field name="buId"/>
+                <field name="businessUnitDescription"/>
+                <field name="documentNo"/>
+                <field name="documentDate"/>
+                <field name="ledgerId"/>
+                <field name="ledgerDescription"/>
+                <field name="basicAmount"/>
+                <field name="amount"/>
+                <field name="advanceAmount"/>
+                <field name="remarks"/>
+            </tree>
+        </field>
+    </record>
+
+  <record model="ir.ui.view" id="vjpo_form_id">
+    <field name="name">vj.purchase.order.form</field>
+    <field name="model">vj.purchase.order</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <group col="2">
+                        <field name="pid"/>
+                        <field name="buId"/>
+                        <field name="businessUnitDescription"/>
+                        <field name="documentNo"/>
+                        <field name="documentDate"/>
+                        <field name="ledgerId"/>
+                        <field name="ledgerDescription"/>
+                        <field name="basicAmount"/>
+                        <field name="amount"/>
+                        <field name="remarks"/>
+                        <field name="advanceAmount"/>
+                        <field name="po_status"/>
+                        <field name="is_po_completed"/>
+                        <button name="get_product_details" string="Get Product Details" type="object"/>
+
+                    </group>
+                </group> 
+                <notebook>
+                    <page string="Purchase Order Lines">
+                        <field name="purchase_order_line_ids">
+                            <tree editable="bottom">
+                                <field name="ItemId" />
+                                <field name="serialNo"/>
+                                <field name="supplier"/>
+                                <field name="code"/>
+                                <field name="description"/>
+                                <field name="longDescription"/>
+                                <field name="uomCode"/>
+                                <field name="quantity"/>
+                                <field name="rate"/>
+                                <field name="amount"/>
+                                <field name="subProject"/>
+                                <field name="budgetHead"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Product Lines">
+                        <field name="vj_po_product_detail_line_ids">
+                            <tree editable="bottom">
+                                <field name="poid" invisible="1" />
+                                <field name="ledger_description"/>
+                                <field name="description"/>
+                                <field name="uom_code"/>
+                                <field name="total_quantity"/>
+                                <field name="pending_quantity"/>
+                                <field name="submitted_quantity"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>                   
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+        <record id="action_vjpo" model="ir.actions.act_window">
+            <field name="name">VJ PO</field>
+            <field name="res_model">vj.purchase.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="vjpo_tree_id"/>
+        </record>
+
+
+    <record id="view_amendment_item_tree" model="ir.ui.view">
+        <field name="name">amendment.items.tree</field>
+        <field name="model">amendment.items</field>
+        <field name="arch" type="xml">
+            <tree string="Amendments">
+                <field name="amendment_id"/>
+                <field name="documentNo"/>
+                <field name="buId"/>
+                <field name="bu_description"/>
+                <field name="documentDate"/>
+                <field name="ledger_id"/>
+                <field name="ledger_description"/>
+                <field name="purchase_order_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for Amendment -->
+    <record id="view_amendment_item_form" model="ir.ui.view">
+        <field name="name">amendment.items.form</field>
+        <field name="model">amendment.items</field>
+        <field name="arch" type="xml">
+            <form string="Amendment Item">
+                <sheet>
+                    <group>
+                        <field name="amendment_id"/>
+                        <field name="documentNo"/>
+                        <field name="buId"/>
+                        <field name="bu_description"/>
+                        <field name="documentDate"/>
+                        <field name="ledger_id"/>
+                        <field name="ItemId" />
+                        <field name="ledger_description"/>
+                        <field name="purchase_order_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Details">
+                            <field name="detail_ids">
+                                <tree string="Amendment Details">
+                                    <field name="amendment_item_id" />
+                                    <field name="documentNo"/>
+                                    <field name="business_unit"/>
+                                    <field name="documentNo"/>
+                                    <field name="documentDate"/>
+                                    <field name="quotation_date"/>
+                                    <field name="parent_ledger_description"/>
+                                    <field name="ledger_description"/>
+                                    <field name="gstin"/>
+                                    <field name="hsn"/>
+                                    <field name="code"/>
+                                    <field name="pos_state_description"/>
+                                    <field name="description"/>
+                                    <field name="uom_code"/>
+                                    <field name="quantity"/>
+                                    <field name="pending_qty"/>
+                                    <field name="submitted_qty"/>
+                                    <field name="rate"/>
+                                    <field name="amount"/>
+                                    <field name="state"/>
+
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Amendments -->
+    <record id="action_amendment_item" model="ir.actions.act_window">
+        <field name="name">Amendments</field>
+        <field name="res_model">amendment.items</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="view_vj_work_order_tree" model="ir.ui.view">
+        <field name="name">vj.work.order.tree</field>
+        <field name="model">vj.work.order</field>
+        <field name="arch" type="xml">
+            <tree string="Work Order">
+                <field name="wid"/>
+                <field name="buId"/>
+                <field name="documentNo"/>
+                <field name="documentDate"/>
+                <field name="partyLedger"/>
+                <field name="subProjectId"/>
+                <field name="amount"/>
+                <field name="grossAmount"/>
+                <field name="netAmount"/>
+                <field name="buName"/>
+                <field name="ledgerName"/>
+                <field name="completionDate"/>
+        
+            </tree>
+        </field>
+    </record> 
+
+    <record id="view_vj_work_order_form" model="ir.ui.view">
+        <field name="name">vj.work.order.form</field>
+        <field name="model">vj.work.order</field>
+        <field name="arch" type="xml">
+            <form string="Work Order">
+                <sheet>
+                    <group>
+                        <field name="wid"/>
+                        <field name="buId"/>
+                        <field name="documentNo"/>
+                        <field name="documentDate"/>
+                        <field name="partyLedger"/>
+                        <field name="subProjectId"/>
+                        <field name="amount"/>
+                        <field name="grossAmount"/>
+                        <field name="netAmount"/>
+                        <field name="buName"/>
+                        <field name="ledgerName"/>
+                        <field name="completionDate"/>
+                
+                    </group>
+                    <notebook>
+                        <page string="Activities">
+                            <field name="activities_ids">
+                                <tree string="Work Order Details">
+                                    <field name="work_order_id" invisible="1"/>
+                                    <field name="businessUnit"/>
+                                    <field name="subProject"/>
+                                    <field name="supplier"/>
+                                    <field name="activityId"/>
+                                    <field name="budgetHead"/>
+                                    <field name="description"/>
+                                    <field name="amendedQuantity"/>
+                                    <field name="amendedAmount"/>
+                                    <field name="amendedRate"/>
+                                    <field name="uomCode"/>
+                                    <field name="create_type_description"/>
+                                    <field name="newActivity"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record> 
+
+
+    <record id="action_vj_work_order" model="ir.actions.act_window">
+        <field name="name">Work Order</field>
+        <field name="res_model">vj.work.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="view_work_order_amendment_tree" model="ir.ui.view">
+        <field name="name">work.order.amendment.tree</field>
+        <field name="model">work.order.amendment</field>
+        <field name="arch" type="xml">
+            <tree string="Work Order Amendment">
+                <field name="buId"/>
+                <field name="amendmentDocumentNumber"/>
+                <field name="documentNo"/>
+                <field name="documentDate"/>
+                <field name="partyLedger"/>
+                <field name="subProjectId"/>
+                <field name="amount"/>
+                <field name="grossAmount"/>
+                <field name="netAmount"/>
+                <field name="buName"/>
+                <field name="ledgerName"/>
+                <field name="completionDate"/>
+        
+            </tree>
+        </field>
+    </record> 
+
+
+    <record id="view_work_order_amendment_form" model="ir.ui.view">
+        <field name="name">work.order.amendment.form</field>
+        <field name="model">work.order.amendment</field>
+        <field name="arch" type="xml">
+            <form string="Work Order Amedment">
+                <sheet>
+                    <group>
+                        <field name="woa_id"/>
+                        <field name="buId"/>
+                        <field name="documentNo"/>
+                        <field name="documentDate"/>
+                        <field name="partyLedger"/>
+                        <field name="subProjectId"/>
+                        <field name="subject"/>
+                        <field name="scope_of_work"/>
+                        <field name="amount"/>
+                        <field name="grossAmount"/>
+                        <field name="netAmount"/>
+                        <field name="buName"/>
+                        <field name="ledgerName"/>
+                        <field name="completionDate"/>
+                
+                    </group>
+                    <notebook>
+                        <page string="Activities">
+                            <field name="activities_ids">
+                                <tree string="Work Order Amedment Activity Details">
+                                    <field name="woa_id" invisible="1"/>
+                                    <field name="businessUnit"/>
+                                    <field name="subProject"/>
+                                    <field name="supplier"/>
+                                    <field name="activityId"/>
+                                    <field name="budgetHead"/>
+                                    <field name="description"/>
+                                    <field name="amendedQnty"/>
+                                    <field name="amendedAmt"/>
+                                    <field name="amendedRate"/>
+                                    <field name="uomCode"/>
+                                    <field name="create_type_description"/>
+                                    <field name="newActivity"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record> 
+
+
+    <record id="action_work_order_amendment" model="ir.actions.act_window">
+        <field name="name">Work Order Amendment</field>
+        <field name="res_model">work.order.amendment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+        <record id="view_vjd_inventory_tree" model="ir.ui.view">
+        <field name="name">vjd.inventory.tree</field>
+        <field name="model">vjd.inventory</field>
+        <field name="arch" type="xml">
+            <tree string="VJD Inventory">
+              <field name="unitId"/>
+                    <field name="unitNo"/>
+                    <field name="buid"/>
+                    <field name="status"/>
+                    <field name="businessUnit"/>
+                    <field name="hierarchyLebel"/>
+                    <!-- <field name="level4"/>
+                    <field name="level3"/>
+                    <field name="level2"/>
+                    <field name="level1"/> -->
+                    <!-- <field name="hierarchyID"/> -->
+                    <field name="hirerchyParent"/>
+                    <!-- <field name="floorId"/> -->
+                    <field name="floorDesc"/>
+                    <!-- <field name="flat_activity_group_ids" widget="many2many_tags"/>
+                    <field name="floor_activity_group_ids" widget="many2many_tags"/> -->
+                    <field name="type"/>
+                    <field name="state"/>
+            </tree>
+        </field>
+    </record> 
+
+ 
+    <record id="view_vjd_inventory_form" model="ir.ui.view">
+        <field name="name">vjd.inventory.form</field>
+        <field name="model">vjd.inventory</field>
+        <field name="arch" type="xml">
+            <form string="VJD Inventory">
+                <sheet>
+                    <group>
+                        <field name="unitId"/>
+                        <field name="unitNo"/>
+                        <field name="businessUnit"/>
+                        <field name="hierarchyLebel"/>
+                        <field name="level4"/>
+                        <field name="level3"/>
+                        <field name="level2"/>
+                        <field name="level1"/>
+                        <field name="hierarchyID"/>
+                        <field name="hirerchyParent"/>
+                        <field name="floorId"/>
+                        <field name="floorDesc"/>
+                        <field name="typologyId"/>
+                        <field name="typology"/>
+                        <field name="unitSubType"/>
+                        <field name="unitTypeId"/>
+                        <field name="unitType"/>
+                        <field name="area1"/>
+                        <field name="uom1"/>
+                        <field name="area2"/>
+                        <field name="uom2"/>
+                        <field name="area3"/>
+                        <field name="uom3"/>
+                        <field name="area4"/>
+                        <field name="uom4"/>
+                        <field name="status"/>
+                        <field name="buid"/>
+                        <field name="state"/>
+                        <field name="type"/>
+                        <field name="flat_activity_group_ids" widget="many2many_tags"/>
+                        <field name="floor_activity_group_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vjd_inventory" model="ir.actions.act_window">
+        <field name="name">VJD Inventory</field>
+        <field name="res_model">vjd.inventory</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="view_vjd_bu_hierarchy_tree" model="ir.ui.view">
+        <field name="name">vjd.bu.hierarchy.tree</field>
+        <field name="model">vjd.bu.hierarchy</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="vjBuId"/>
+                <field name="buName"/>
+                <field name="buCode"/>
+                <field name="parentId"/>
+                <field name="segmentId"/>
+                <field name="segName"/>
+                <field name="scplBuId"/>
+                <field name="state"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_vjd_project_hierarchy_tree" model="ir.ui.view">
+        <field name="name">vjd.project.hierarchy.tree</field>
+        <field name="model">vjd.project.hierarchy</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="buId"/>
+                <!-- <field name="businessUnit"/> -->
+                <field name="hierarchyId"/>
+                <field name="hierarchyTypeId"/>
+                <field name="parentId"/>
+                <field name="hierarchyName"/>
+                <field name="hierarchyLebel"/>
+                <field name="tower"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_vjd_bu_hierarchy_form" model="ir.ui.view">
+        <field name="name">vjd.bu.hierarchy.form</field>
+        <field name="model">vjd.bu.hierarchy</field>
+        <field name="arch" type="xml">
+            <form>
+              <!-- <header>
+                <field name="state" widget="statusbar" />
+            </header> -->
+                <sheet>
+                    <group>
+                        <!-- <button name="create_project_towers" string="Create Project/Tower" type="object"  class="btn-primary"/> -->
+                    </group>
+                <group col="2">
+                    <group>
+                        <field name="businessUnit"/>
+                        <field name="vjBuId"/>
+                        <field name="buName"/>
+                        <field name="buCode"/>
+                        <field name="parentId"/>
+                    </group>
+                       <group>
+                        <field name="segmentId"/>
+                        <field name="segName"/>
+                        <field name="scplBuId"/>
+                        <field name="state"/>
+                    </group>
+                    </group>
+            
+                    <group>
+                        <field name="project_hierarchy_ids">
+                            <tree>
+                                <!-- <button name="create_flat_floors" string="Create Flat/Floor" type="object" class="btn btn-primary me-1"/> -->
+                                <field name="hierarchyId"/>
+                                <field name="buId"/>
+                                <field name="hierarchyTypeId"/>
+                                <field name="parentId"/>
+                                <field name="hierarchyName"/>
+                                <field name="hierarchyLebel"/>
+                                <field name="tower"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_vjd_bu_hierarchy" model="ir.actions.act_window">
+        <field name="name">VJD BU Hierarchy</field>
+        <field name="res_model">vjd.bu.hierarchy</field>
+        <field name="view_mode">tree,form</field>
+    </record> 
+
+
+    <record id="form_view_construction_activity_group" model="ir.ui.view">
+        <field name="name">construction.activity.group.form</field>
+        <field name="model">construction.activity.group</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="activity_id" invisible="1"/>
+                        <field name="activity_group_id"/>
+
+                        <field name="type_1"/>
+                        <field name="type_2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_construction_activity_group" model="ir.actions.act_window">
+        <field name="name">Construction Activity Group</field>
+        <field name="res_model">construction.activity.group</field>
+        <field name="view_mode">tree,form</field>
+    </record> 
+
+
+        <record id="test_code_tree_view" model="ir.ui.view">
+        <field name="name">test.code.tree</field>
+        <field name="model">test.code</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Test">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="test_code_form">
+        <field name="name">test.code.form</field>
+        <field name="model">test.code</field>
+        <field name="arch" type="xml">
+            <form>
+            <sheet>
+                <group>
+                    <group col="2">
+                    <field name="name"/>
+                    <!-- <button name="map_activity_group_to_id" string="Map Construction Activity Group to Activity Master" type="object"/> -->
+                    <!-- <button name="create_construction_activity_group" string="Create Construction Activity Group" type="object"/>
+                    <button name="map_activity_with_activity_group" string="Map Activity With Activity Group" type="object"/>
+                    <button name="map_floor_id_with_activity_group" string="Map Floor Id With Activity Group" type="object"/>
+                    <button name="set_inv_records_To_draft" string="Set Inv Records To Draft" type="object"/>
+                    <button name="set_manual_group_in_the_inventory" string="Set Manual Group To Inv Records" type="object"/>
+                    <button name="delete_ff" string="Delete" type="object"/> -->
+                    
+<!--                     
+                    <button name="flat_vj_indlife_wakad" string="Flat VJ Indlife Wakad" type="object"/>
+                    <button name="floor_vj_indlife_wakad" string="Floor VJ Indlife Wakad" type="object"/>
+                    <button name="flat_vj_pkc_and_ca" string="Flat VJ PKC and CA" type="object"/>
+                    <button name="floor_vj_pkc_and_ca" string="Floor VJ PKC and CA" type="object"/>
+                    <button name="flat_VJ_NUOVOCENTRO" string="Flat VJ NUOVOCENTRO" type="object"/>
+                    <button name="floor_VJ_NUOVOCENTRO" string="Floor VJ NUOVOCENTRO" type="object"/>
+                    <button name="floor_VJ_PBC" string="Floor VJ PBC" type="object"/>
+                    <button name="flat_VJ_PBC" string="Flat VJ PBC" type="object"/>
+                    <button name="floor_VJ_PORTIA_GRANDE" string="Floor VJ_PORTIA_GRANDE" type="object"/>
+                    <button name="flat_VJ_PORTIA_GRANDE" string="Flat VJ_PORTIA_GRANDE" type="object"/>
+                    <button name="flat_VJ_ETERNITEE" string="Flat VJ_ETERNITEE" type="object"/>
+                    <button name="floor_VJ_ETERNITEE" string="Floor VJ_ETERNITEE" type="object"/>
+                    <button name="flat_VJ_ENCHANTE" string="Flat VJ_ENCHANTE" type="object"/>
+                    <button name="floor_VJ_ENCHANTE" string="Floor VJ_ENCHANTE" type="object"/>
+                    <button name="flat_VJ_INDILIFE_KHARADI" string="Flat VJ_INDILIFE_KHARADI" type="object"/>
+                    <button name="floor_VJ_INDILIFE_KHARADI" string="Floor VJ_INDILIFE_KHARADI" type="object"/>
+                    <button name="floor_VJ_URBO_CENTRO" string="Floor VJ URBO CENTRO" type="object"/>
+                    <button name="flat_VJ_URBO_CENTRO" string="Flat 1 VJ URBO CENTRO" type="object"/>
+                    <button name="flat2_VJ_URBO_CENTRO" string="Flat 2 VJ URBO CENTRO" type="object"/>
+                    <button name="flat3_VJ_URBO_CENTRO" string="Flat 3 VJ URBO CENTRO" type="object"/>
+                    <button name="flat4_VJ_URBO_CENTRO" string="Flat 4 VJ URBO CENTRO" type="object"/>
+                    <button name="flat5_VJ_URBO_CENTRO" string="Flat 5 VJ URBO CENTRO" type="object"/>
+                    <button name="flat6_VJ_URBO_CENTRO" string="Flat 6 VJ URBO CENTRO" type="object"/>
+     -->
+                    <!-- <button name="create_mir_seq_no" string="Create MIR No For MI" type="object"/> -->
+
+                    </group>     
+                </group>                    
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+        <record id="action_test_code" model="ir.actions.act_window">
+        <field name="name">Test Code</field>
+        <field name="res_model">test.code</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="test_code_tree_view"/>
+        </record>
+
+
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="hqi_data_menu"
+        name="Home Quality Inspection"
+        groups="base.group_system"
+        sequence="32">
+
+              <menuitem id="flat_site_visit_submenu"
+                     name="Flat Site Visit(s)"
+                     sequence="1" action="action_flat_site_visit" />
+
+                     <menuitem id="site_visit_location_submenu"
+                     name="Site Visit Location(s)"
+                     sequence="2" action="action_site_visit_location" />
+
+                     <menuitem id="observation_submenu"
+                     name="Visit Observation(s)"
+                     sequence="3" action="action_location_observation" />
+
+                    
+    </menuitem>
+
+</odoo>

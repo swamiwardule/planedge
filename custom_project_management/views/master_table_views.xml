@@ -1,0 +1,272 @@
+    <odoo>
+    <record id="project_actn_tree_id" model="ir.ui.view">
+        <field name="name">project.activity.type.name.tree</field>
+        <field name="model">project.activity.type.name</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Activity Type Name">
+                <field name="name"/>
+                <field name="realname"/>
+                <field name="status"/>
+                <button name="update_name" string="Update Name" type="object"  />
+                
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_actn_from_id" model="ir.ui.view">
+        <field name="name">project.activity.type.name.form</field>
+        <field name="model">project.activity.type.name</field>
+        <field name="arch" type="xml">
+            <form string="Activity Type Name">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="realname"/>
+
+
+                        </group>
+                    </group>
+
+                                 <notebook>
+                            <page string="Activity Type Names">
+                                <field name="patnl_ids" >
+                                    <tree>
+                                        <field name="checklist_id"/>
+                                    </tree>
+                                                    <form string="Activity Type Names">
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                           
+                                                    <field name="checklist_id"/>
+                                                
+                                                </group>
+                      
+                                            </group>
+                                        </sheet>
+                                        </form>  
+                                 </field>
+                            </page>
+                        </notebook>
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+        <record id="project_activity_name_tree_id" model="ir.ui.view">
+        <field name="name">project.activity.name.tree</field>
+        <field name="model">project.activity.name</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Activity Name">
+                <field name="name"/>
+                <field name="realname"/>
+                <field name="type"/>
+                <field name="type_2"/>
+                <!-- <field name="status"/> -->
+                <!-- <button name="update_name" string="Update Name" type="object"  /> -->
+            </tree>
+        </field>
+    </record>
+
+      <record id="project_activity_name_from_id" model="ir.ui.view">
+        <field name="name">project.activity.name.form</field>
+        <field name="model">project.activity.name</field>
+        <field name="arch" type="xml">
+            <form string="Project Activity Names">
+                <sheet>
+                    <group>
+                        <group col="2">
+                            <field name="name" required="1"/>
+                            <field name="description"/>
+                            <field name="realname"/>
+                            <field name="type"/>
+                            <field name="type_2"/>
+                            <field name="project_ids" widget="many2many_tags" options="{'no_create': True}" />
+
+                            <button name="load_projects" string="Load Projects" type="object"  class="btn btn-primary me-1" /> 
+                            <!-- <button name="del_activity" string="Delete Activity From  Above Project(s)" type="object"  class="btn btn-primary me-1" />  -->
+
+                        </group>
+                    </group>
+                         <notebook>
+                            <page string="Activity Type Names">
+                                <field name="panl_ids" >
+                                    <tree>
+                                        <field name="patn_id"/>
+                                    </tree>
+                                     <form string="Activity Type Names">
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                           
+                                                    <field name="patn_id"/>
+                                                
+                                                </group>
+                      
+                                            </group>
+                                        </sheet>
+                                        </form>  
+                                 </field>
+                            </page>
+                        </notebook>
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_activity_name" model="ir.actions.act_window">
+        <field name="name">Activity Name</field>
+        <field name="res_model">project.activity.name</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create Activity</p>
+        </field>
+    </record>
+
+     <record id="action_activity_type_name" model="ir.actions.act_window">
+        <field name="name">Project Activity Type Name</field>
+        <field name="res_model">project.activity.type.name</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create Activity type Name</p>
+        </field>
+    </record>
+
+
+
+    <record id="unit_locations_tree_id" model="ir.ui.view">
+        <field name="name">unit.locatins.tree</field>
+        <field name="model">unit.locations</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Unit Locations">
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="unit_type"/>   
+            </tree>
+        </field>
+    </record>
+
+    <record id="unit_locations_from_id" model="ir.ui.view">
+        <field name="name">unit.locations.form</field>
+        <field name="model">unit.locations</field>
+        <field name="arch" type="xml">
+            <form string="Unit Locations">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="name"/>
+                            <field name="unit_type"/> 
+                        </group>
+                    </group>        
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    
+     <record id="action_unit_locations" model="ir.actions.act_window">
+        <field name="name">Unit Locations</field>
+        <field name="res_model">unit.locations</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create Unit Locations</p>
+        </field>
+    </record>
+
+
+    <record id="issue_category_tree_id" model="ir.ui.view">
+        <field name="name">issue.category.tree</field>
+        <field name="model">issue.category</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Issue Category">
+                <field name="sequence"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="issue_category_from_id" model="ir.ui.view">
+        <field name="name">issue.category.form</field>
+        <field name="model">issue.category</field>
+        <field name="arch" type="xml">
+            <form string="Issue Category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="name"/>
+                        </group>
+                    </group>        
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    
+     <record id="action_issue_category" model="ir.actions.act_window">
+        <field name="name">Issue Category</field>
+        <field name="res_model">issue.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create Issue Category</p>
+        </field>
+    </record>
+
+    <record id="issue_type_tree_id" model="ir.ui.view">
+        <field name="name">issue.type.tree</field>
+        <field name="model">issue.type</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Issue Type">
+                <field name="issue_category_id"/>
+                <field name="sequence"/>
+                <field name="name"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="issue_type_from_id" model="ir.ui.view">
+        <field name="name">issue.type.form</field>
+        <field name="model">issue.type</field>
+        <field name="arch" type="xml">
+            <form string="Issue Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="issue_category_id"/>
+                            <field name="sequence"/>
+                            <field name="name"/>
+                        </group>
+                    </group>        
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    
+     <record id="action_issue_type" model="ir.actions.act_window">
+        <field name="name">Issue Type</field>
+        <field name="res_model">issue.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create Issue Type</p>
+        </field>
+    </record>
+
+</odoo>

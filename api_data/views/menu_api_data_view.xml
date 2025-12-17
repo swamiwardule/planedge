@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="api_data_menu"
+        name="API Data"
+        groups="base.group_system"
+        sequence="31">
+
+
+              <menuitem id="bu_submenu"
+                     name="Business Unit"
+                     sequence="1" action="action_bu" />
+
+              <menuitem id="sbu_submenu"
+                     name="Sub Business Unit"
+                     sequence="2" action="action_sbu" />
+
+              <menuitem id="am_submenu"
+                     name="Activity Master"
+                     sequence="3" action="action_am" />
+
+              <menuitem id="im_submenu"
+                     name="Item Master"
+                     sequence="4" action="action_im" />
+              
+              <menuitem id="vjpo_submenu"
+                     name="Purchase Order"
+                     sequence="5" action="action_vjpo" />
+
+               <menuitem id="amendment_item_submenu"
+                     name="Amendment Item"
+                     sequence="6" action="action_amendment_item" />
+
+              <menuitem id="workorder_submenu"
+                     name="Work Order"
+                     sequence="7" action="action_vj_work_order" />
+               <menuitem id="workorder_amedment_submenu"
+                     name="Work Order Amedment"
+                     sequence="8" action="action_work_order_amendment" />
+              <menuitem id="vj_inventory_amedment_submenu"
+                     name="VJ Inventory"
+                     sequence="9" action="action_vjd_inventory" />
+              <menuitem id="vjd_bu_hierarchy_submenu"
+                     name="VJD Bu Hierarchy"
+                     sequence="10" action="action_vjd_bu_hierarchy" />
+               <menuitem id="construction_activity_group_submenu"
+                     name="Activity Group"
+                     sequence="11" action="action_construction_activity_group" />
+              <menuitem id="test_code_functionality_submenu"
+                     name="Test Functionality"
+                     sequence="12" action="action_test_code" />
+                 <menuitem id="api_log_submenu"
+                     name="Logs"
+                     sequence="13" action="action_api_log" />
+    </menuitem>
+
+</odoo>

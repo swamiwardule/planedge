@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<record id="inherit_project_tower_form" model="ir.ui.view">
+    <field name="name">project.tower.form.inherit</field>
+    <field name="model">project.tower</field>
+    <field name="inherit_id" ref="custom_project_management.project_tower_from_id"/> <!-- Replace module_name with the module containing the original view -->
+    <field name="arch" type="xml">
+        <field name="project_id" position="after">
+            <field name="businessUnit"/>
+            <field name="subDescription"/>
+            <field name="vjd_bu_hie_id"/>
+            <field name="vjd_pro_hie_id"/>
+            <field name="sub_business_unit_id"/>
+            <field name="tower_type"/>
+
+        </field>
+        <field name="assigned_to_ids" position="after">
+            <button name="create_floor_activity" string="Create Floor Activity(s)" type="object" attrs="{'invisible': [('tower_type', '=', 'development')]}"/>
+            <button name="create_flat_activity" string="Create Flat Activity(s)" type="object" attrs="{'invisible': [('tower_type', '=', 'development')]}"/>
+            <button name="create_common_activity" string="Create Common Activity(s)" type="object" attrs="{'invisible': [('tower_type', '=', 'development')]}"/>
+            <button name="create_development_activity" string="Create Development Activity(s)" type="object" attrs="{'invisible': [('tower_type', '!=', 'development')]}"/>
+
+        </field>
+    </field>
+</record>
+</odoo>
+

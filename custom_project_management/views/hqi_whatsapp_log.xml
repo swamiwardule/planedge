@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_hqi_whatsapp_log_form">
+            <field name="name">hqi.whatsapp.log.form</field>
+            <field name="model">hqi.whatsapp.log</field>
+            <field name="arch" type="xml">
+                <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="project" readonly="0"/>
+                            <field name="tower" readonly="0"/>
+                            <field name="unit" readonly="0"/>
+                            <field name="message" readonly="0"/>
+                        </group>
+                        <group>
+                            <field name="datetime" readonly="0"/>
+                            <field name="state" readonly="0"/>
+                            <field name="from_user" readonly="0"/>
+                            <field name="to_user" readonly="0"/>
+                            <field name="response" readonly="0"/>
+                            <field name="error" readonly="0"/>
+                        </group>
+                        <group>
+                            <button name="send_checker_ticket_message" string="Send" type="object"/>
+                        </group>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_hqi_whatsapp_log_tree">
+            <field name="name">hqi.whatsapp.log.tree</field>
+            <field name="model">hqi.whatsapp.log</field>
+            <field name="arch" type="xml">
+                <tree string="Whatsapp Log">
+                    <field name="project"/>
+                    <field name="tower" />
+                    <field name="unit" />
+                </tree>
+            </field>
+    </record>
+
+        <record id="action_open_hqi_whatsapp_log" model="ir.actions.act_window">
+            <field name="name">Hqi WhatsApp Log</field>
+            <field name="res_model">hqi.whatsapp.log</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_hqi_whatsapp_log_tree"/>
+        </record>
+
+    <!-- <menuitem id="menu_hqi_whatsapp_log" name="HQI WhatsApp Log" parent="hqi_data_menu" groups="base.group_system" />
+    <menuitem id="submenu_hqi_whatsapp_log" name="HQI WhatsApp Log" parent="menu_hqi_whatsapp_log" action="action_open_hqi_whatsapp_log" /> -->
+
+    </data>
+</odoo>

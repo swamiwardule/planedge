@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+    <!-- Form view -->
+    <record model="ir.ui.view" id="view_hqi_email_form">
+        <field name="name">hqi.email.form</field>
+        <field name="model">hqi.email</field>
+        <field name="arch" type="xml">
+            <form string="HQI Email">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="project" />
+                            <field name="building" />
+                            <field name="flat" />
+                            <field name="project_incharge_id" />
+                            <field name="email_to" />
+                            <field name="datetime" />
+                            <field name="state" />
+                            <field name="error" />
+                            <field name="pdf_report" />
+                            <button name="action_send_email"
+                            string="Send Email"
+                            type="object"
+                            class="btn-primary"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree view -->
+    <record model="ir.ui.view" id="view_hqi_email_tree">
+        <field name="name">hqi.email.tree</field>
+        <field name="model">hqi.email</field>
+        <field name="arch" type="xml">
+            <tree string="Email Log">
+            <field name="project" />
+            <field name="building" />
+            <field name="flat" />
+            <field name="email_to" readonly="1"/>
+            <field name="datetime" readonly="1"/>
+            <field name="state" readonly="1"/>
+           
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_open_hqi_email_log" model="ir.actions.act_window">
+        <field name="name">HQI Email Log</field>
+        <field name="res_model">hqi.email</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu -->
+    <!-- <menuitem id="menu_hqi_email_log"
+              name="HQI Email Log"
+              parent="hqi_data_menu"
+              groups="base.group_system"/>
+    <menuitem id="submenu_hqi_email_log"
+              name="HQI Email Log"
+              parent="menu_hqi_email_log"
+              action="action_open_hqi_email_log"/> -->
+
+
+
+    </data>
+</odoo>

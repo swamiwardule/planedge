@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View: Flat Site Visit -->
+    <record id="flat_site_visit_tree_id" model="ir.ui.view">
+        <field name="name">flat.site.visit.tree</field>
+        <field name="model">flat.site.visit</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Flat Site Visit(s)">
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="flat_id"/>
+                <field name="tower_id"/>
+                <field name="project_id"/>
+                <field name="color"/>
+                <field name="total_observation_count"/>  
+                <field name="pending_observation_count"/>
+                <field name="completed_observation_count"/>   
+                <field name="checker_completed_count"/>  
+                <field name="checker_pending_count"/>
+                <field name="maker_completed_count"/> 
+                <field name="maker_pending_count"/>            
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View: Flat Site Visit -->
+    <record id="flat_site_visit_form" model="ir.ui.view">
+        <field name="name">flat.site.visit.form</field>
+        <field name="model">flat.site.visit</field>
+        <field name="arch" type="xml">
+            <form readonly="1">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="name"/>
+                            <field name="flat_id"/>
+                            <field name="tower_id"/>
+                            <field name="project_id"/>
+                            <field name="total_observation_count"/>
+                            <field name="color"/>
+                            <field name="is_pdf_downloaded"/>
+                            <field name="total_observation_count"/>  
+                            <field name="pending_observation_count"/>
+                            <field name="completed_observation_count"/>  
+                            <field name="checker_completed_count"/>  
+                            <field name="checker_pending_count"/>
+                            <field name="maker_completed_count"/> 
+                            <field name="maker_pending_count"/> 
+
+                        </group>
+                        <group>
+                            <button name="action_generate_report_pdf"
+                                    string="Generate PDF Report"
+                                    type="object"
+                                    class="btn-primary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Locations">
+                            <field name="sv_location_ids" widget="one2many_list"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_flat_site_visit" model="ir.actions.act_window">
+        <field name="name">Flat Site Visit</field>
+        <field name="res_model">flat.site.visit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Do Not Create Site Visit Manually</p>
+        </field>
+    </record>
+
+    <!-- Tree View: Site Visit Locations -->
+    <record id="site_visit_location_tree_id" model="ir.ui.view">
+        <field name="name">site.visit.locations.tree</field>
+        <field name="model">site.visit.locations</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Flat Site Visit Location(s)">
+                <field name="flat_site_visit_id"/>
+                <field name="flat_id"/>
+                <field name="unit_location_id"/>
+                <field name="name"/>
+                <field name="unit_type"/>
+                <field name="color"/>
+                <field name="observation_count"/>
+                <field name="pending_observation_count"/>
+                <field name="completed_observation_count"/>
+
+                <field name="checker_completed_count"/>  
+                <field name="checker_pending_count"/>
+                <field name="maker_completed_count"/> 
+                <field name="maker_pending_count"/> 
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View: Site Visit Location -->
+    <record id="site_visit_location_form" model="ir.ui.view">
+        <field name="name">site.visit.locations.form</field>
+        <field name="model">site.visit.locations</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="flat_id"/>
+                            <field name="flat_site_visit_id"/>
+                            <field name="unit_location_id"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="color"/>
+                            <field name="unit_type"/>
+                            <field name="observation_count"/>
+                            <field name="pending_observation_count"/>
+                             <field name="completed_observation_count"/>
+                        </group>
+                        <group>
+
+
+                            <field name="checker_completed_count"/>  
+                            <field name="checker_pending_count"/>
+                            <field name="maker_completed_count"/> 
+                            <field name="maker_pending_count"/> 
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Observations">
+                            <field name="svb_location_ids" widget="one2many_list"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_site_visit_location" model="ir.actions.act_window">
+        <field name="name">Flat Site Visit Location</field>
+        <field name="res_model">site.visit.locations</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Do Not Create Site Visit Locations Manually</p>
+        </field>
+    </record>
+
+    <!-- Tree View: Observation -->
+    <record id="location_observation_tree_id" model="ir.ui.view">
+        <field name="name">site.visit.location.observation.tree</field>
+        <field name="model">site.visit.location.observation</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Site Visit Location Observation">
+                <field name="site_visit_location_id"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="issue_category_id"/>
+                <field name="issue_type_id"/>
+                <field name="description"/>
+                <field name="remark"/>
+                <field name="target_date"/>
+                <field name="impact"/>
+                <field name="observation_id"/>
+                <field name="color"/>
+                <field name="is_original_observation"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View: Observation -->
+    <record id="location_observation_form" model="ir.ui.view">
+        <field name="name">site.visit.location.observation.form</field>
+        <field name="model">site.visit.location.observation</field>
+        <field name="arch" type="xml">
+            <form readonly="1">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="site_visit_location_id"/>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="date"/>
+                            <field name="target_date"/>
+                            <field name="issue_category_id"/>
+                            <field name="issue_type_id"/>
+                            <field name="description"/>
+                            <field name="remark"/>
+                            <field name="impact"/>
+                            <field name="is_original_observation"/>
+                            <field name="color"/>
+                        </group>
+                        <group>
+                            <field name="observation_id"/>
+                            <field name="state"/>
+                            <field name="user_checker"/>
+                            <field name="user_maker"/>
+                            <field name="checker_submitted"/>
+                            <field name="maker_submitted"/>
+                            <field name="checker_count"/>
+                            <field name="maker_count"/>
+                          
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Image(s)" name="details_lines">
+                            <field name="observation_image_ids">
+                                <tree>
+                                    <field name="svl_observation_id"/>
+                                    <field name="user_checker" />
+                                    <field name="user_maker" />
+                                    <field name="checker_uploaded_img" />
+                                    <field name="maker_uploaded_img" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_location_observation" model="ir.actions.act_window">
+        <field name="name">Observation</field>
+        <field name="res_model">site.visit.location.observation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Do Not Create Observation Manually</p>
+        </field>
+    </record>
+</odoo>

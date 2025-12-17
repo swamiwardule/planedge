@@ -1,0 +1,11 @@
+<odoo>
+<report
+    id="action_report_flat_hqi"
+    model="project.flats"
+    string="Flat HQI Report"
+    report_type="qweb-pdf"
+    name="custom_project_management.report_flat_hqi_pdf_template"
+    file="custom_project_management.report_flat_hqi_pdf_template"
+    print_report_name="'HQI Report - %s' % (object.name)"
+/>
+</odoo>

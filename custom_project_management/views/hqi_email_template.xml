@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Template to send Sale Order email to the customer -->
+    <record id="email_template_hqi" model="mail.template">
+          <field name="name">HQI Email Notification</field>
+            <field name="model_id" ref="custom_project_management.model_hqi_email"/>
+            <field name="subject">HQI Inspection – ${object.project}, ${object.tower}, Flat No. ${object.flat}</field>
+            <field name="email_from">${(user.company_id.email or user.email) | safe}</field>
+            <field name="email_to">${object.email_to}</field>
+        <field name="body_html" type="html">
+            <div style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+                <!-- <p>Dear ${object.recipient_name},</p>
+                <p>${object.body}</p>
+                <p>Best regards,<br/>${user.name}</p> -->
+            </div>
+        </field>
+    </record>
+
+</odoo>
+

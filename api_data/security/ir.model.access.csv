@@ -1,0 +1,36 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sbu,sbu,model_sub_business_unit,base.group_system,1,1,1,1
+access_bu,bu,model_business_unit,base.group_system,1,1,1,1
+access_am,am,model_activity_master,base.group_system,1,1,1,1
+access_im,im,model_item_master,base.group_system,1,1,1,1
+access_vjpo,vjpo,model_vj_purchase_order,base.group_system,1,1,1,1
+access_vjpol,vjpol,model_vj_purchase_order_line,base.group_system,1,1,1,1
+access_amendment_items,amendment_items,model_amendment_items,base.group_system,1,1,1,1
+access_amendment_details,amendment_details,model_amendment_details,base.group_system,1,1,1,1
+access_vj_work_order,vj_work_order,model_vj_work_order,base.group_system,1,1,1,1
+access_vj_work_order_activity,vj_work_order_activity,model_vj_work_order_activity,base.group_system,1,1,1,1
+access_work_order_amendment,work_order_amendment,model_work_order_amendment,base.group_system,1,1,1,1
+access_work_order_amendment_activity,work_order_amendment_activity,model_work_order_amendment_activity,base.group_system,1,1,1,1
+access_vjd_inventory,vjd_inventory,model_vjd_inventory,base.group_system,1,1,1,1
+access_vjd_bu_hierarchy,vjd_bu_hierarchy,model_vjd_bu_hierarchy,base.group_system,1,1,1,1
+access_vjd_project_hierarchy,vjd_project_hierarchy,model_vjd_project_hierarchy,base.group_system,1,1,1,1
+access_construction_activity_group,construction_activity_group,model_construction_activity_group,base.group_system,1,1,1,1
+access_test_code_group,test_code,model_test_code,base.group_system,1,1,1,1
+access_vjpd,vj_po_product_details,model_vj_po_product_details,base.group_system,1,1,1,1
+
+access_bu_unit_readwrite,SUB BU Unit ReadWrite,model_sub_business_unit,api_data.group_api_data_readonly,1,1,1,1
+access_vjd_bu_readwrite,VJD BU ReadWrite,model_vjd_bu_hierarchy,api_data.group_api_data_readonly,1,1,1,1
+access_vjd_project_readwrite,VJD Project ReadWrite,model_vjd_project_hierarchy,api_data.group_api_data_readonly,1,1,1,1
+access_bu_readwrite,BU Unit ReadWrite,model_business_unit,api_data.group_api_data_readonly,1,1,1,1
+access_vjd_inv_readwrite,VJD INV ReadWrite,model_vjd_inventory,api_data.group_api_data_readonly,1,1,1,1
+
+access_api_log,API Log,model_api_log,base.group_system,1,1,1,1
+
+
+
+
+
+
+
+
+

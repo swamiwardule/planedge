@@ -1,0 +1,11 @@
+<odoo>
+  <!-- HQI Report PDF Action -->
+  <record id="action_report_hqi" model="ir.actions.report">
+    <field name="name">HQI Report</field>
+    <field name="model">flat.site.visit</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">custom_project_management.report_blank_pdf_template</field>
+    <field name="print_report_name">'HQI_Report_' + object.name</field>
+    <field name="paperformat_id" ref="custom_project_management.paperformat_hqi_report"/>
+  </record>
+</odoo>

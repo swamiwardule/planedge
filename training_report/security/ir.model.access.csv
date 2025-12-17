@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_training_report,training_report,model_training_report,,1,1,1,1
+access_training_report_line,training_report_line,model_training_report_line,,1,1,1,1
+access_training_report_image,training_report_image,model_training_report_image,,1,1,1,1
+

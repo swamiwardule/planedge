@@ -1,0 +1,92 @@
+<odoo>
+  <template id="report_flat_hqi_pdf_template">
+    <t t-set="doc" t-value="docs[0]" />
+    <t t-call-assets="web.report_assets_common" t-js="false"/>
+    <main class="page" style="padding: 30px; font-family: Arial, sans-serif; font-size: 12px;">
+
+      <h2 style="text-align:center; margin-bottom:20px;">Home Quality Inspection Report (Flat Summary)</h2>
+
+      <!-- Flat Info -->
+      <table style="width:100%; margin-bottom:10px;">
+        <tr><td><strong>Project:</strong> <t t-esc="doc.project_id.name or ''"/></td></tr>
+        <tr><td><strong>Tower:</strong> <t t-esc="doc.tower_id.name or ''"/></td></tr>
+        <tr><td><strong>Flat:</strong> <t t-esc="doc.name or ''"/></td></tr>
+      </table>
+
+      <t t-foreach="doc.flat_site_visit_ids" t-as="visit">
+        <h3 style="color: #444;">Report Name: <t t-esc="visit.name"/></h3>
+
+        <t t-foreach="visit.sv_location_ids" t-as="loc">
+          <t t-if="loc.svb_location_ids">
+            <h4 style="margin-top: 15px; color: #2E7D32;">Location - <t t-esc="loc.name or ''"/></h4>
+
+            <table style="width:100%; border-collapse: collapse;" border="1">
+              <thead>
+                <tr style="background-color:#eee;">
+                  <th>Photo</th>
+                  <th>Issue Category</th>
+                  <th>Issue</th>
+                  <th>Remarks</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="loc.svb_location_ids" t-as="obs">
+                  <tr>
+                    <!-- Photo -->
+                    <td>
+                      <t t-foreach="obs.observation_image_ids" t-as="img">
+                        <t t-if="img.maker_uploaded_img">
+                          <img t-att-src="'data:image/png;base64,%s' % img.maker_uploaded_img.decode('utf-8')" style="max-width:80px; max-height:80px;" /><br/>
+                        </t>
+                        <t t-if="img.checker_uploaded_img">
+                          <img t-att-src="'data:image/png;base64,%s' % img.checker_uploaded_img.decode('utf-8')" style="max-width:80px; max-height:80px;" /><br/>
+                        </t>
+                      </t>
+                    </td>
+
+                    <!-- Issue Category + Impact -->
+                    <td>
+                      <div><strong><t t-esc="obs.issue_category_id.name or ''"/></strong></div>
+                      <div>
+                        <table style="margin-top:5px;">
+                          <tr>
+                            <td><div t-att-style="'width: 20px; height: 6px; background-color: %s' % ('#FFCF00' if obs.impact == 'low' else '#D9D9D9')"></div></td>
+                            <td><div t-att-style="'width: 20px; height: 6px; background-color: %s' % ('#FFAE00' if obs.impact == 'medium' else '#D9D9D9')"></div></td>
+                            <td><div t-att-style="'width: 20px; height: 6px; background-color: %s' % ('#FF1D00' if obs.impact == 'high' else '#D9D9D9')"></div></td>
+                          </tr>
+                          <tr>
+                            <td style="font-size: 8px;">Low</td>
+                            <td style="font-size: 8px;">Medium</td>
+                            <td style="font-size: 8px;">High</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </td>
+
+                    <!-- Issue -->
+                    <td><t t-esc="obs.description or ''"/></td>
+
+                    <!-- Remarks -->
+                    <td><t t-esc="obs.remark or ''"/></td>
+
+                    <!-- Status -->
+                    <td>
+                      <t t-if="obs.state == 'completed'">
+                        <span style="color:green;">Completed</span>
+                      </t>
+                      <t t-else="">
+                        <span>Pending</span>
+                      </t>
+                    </td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+          </t>
+        </t>
+      </t>
+
+    </main>
+  </template>
+</odoo>
