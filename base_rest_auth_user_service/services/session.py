@@ -1009,26 +1009,52 @@ class SessionAuthenticationService(Component):
 
         # iterate activities
         for activity in flat.activity_ids:
-            count = draft = checked = approve = 0
-            color = 'yellow'
-            activity_type_status = False
+            # count = draft = checked = approve = 0
+            # color = 'yellow'
+            # activity_type_status = False
+
+            # for act_type in activity.activity_type_ids:
+            #     status = act_type.status
+            #     count += 1
+            #     if status == 'draft':
+            #         draft += 1
+            #     elif status == 'checked':
+            #         checked += 1
+            #     elif status == 'approve':
+            #         approve += 1
+
+            # total_count += count
+            # if draft and not checked and not approve:
+            #     color = 'red'
+            # if approve and not draft and not checked:
+            #     color = 'green'
+            #     activity_type_status = True
+            color = 'green'                 # assume best
+            activity_type_status = True     # all approved
+            has_yellow = False
+            has_red = False
 
             for act_type in activity.activity_type_ids:
                 status = act_type.status
-                count += 1
-                if status == 'draft':
-                    draft += 1
-                elif status == 'checked':
-                    checked += 1
-                elif status == 'approve':
-                    approve += 1
+                total_count += 1
 
-            total_count += count
-            if draft and not checked and not approve:
+                if status in ['draft', 'submit', 'checker_reject']:
+                    has_red = True
+
+                elif status in ['checked', 'approver_reject']:
+                    has_yellow = True
+
+            # decide final color (PRIORITY BASED)
+            if has_red:
                 color = 'red'
-            if approve and not draft and not checked:
+                activity_type_status = False
+            elif has_yellow:
+                color = 'yellow'
+                activity_type_status = False
+            else:
                 color = 'green'
                 activity_type_status = True
+
 
             last_update = self._get_activity_last_update(activity)
 
@@ -1071,27 +1097,54 @@ class SessionAuthenticationService(Component):
         list_floor_data = []
         total_count = 0
 
+        # for activity in floor.activity_ids:
+        #     count = draft = checked = approve = 0
+        #     color = 'yellow'
+        #     activity_type_status = False
+
+        #     for act_type in activity.activity_type_ids:
+        #         status = act_type.status
+        #         count += 1
+        #         if status == 'draft':
+        #             draft += 1
+        #         elif status == 'checked':
+        #             checked += 1
+        #         elif status == 'approve':
+        #             approve += 1
+
+        #     total_count += count
+        #     if draft and not checked and not approve:
+        #         color = 'red'
+        #     if approve and not draft and not checked:
+        #         color = 'green'
+        #         activity_type_status = True
         for activity in floor.activity_ids:
-            count = draft = checked = approve = 0
-            color = 'yellow'
-            activity_type_status = False
+            color = 'green'                 # assume all approved
+            activity_type_status = True     # all approved by default
+            has_yellow = False
+            has_red = False
 
             for act_type in activity.activity_type_ids:
                 status = act_type.status
-                count += 1
-                if status == 'draft':
-                    draft += 1
-                elif status == 'checked':
-                    checked += 1
-                elif status == 'approve':
-                    approve += 1
+                total_count += 1
 
-            total_count += count
-            if draft and not checked and not approve:
+                if status in ['draft', 'submit', 'checker_reject']:
+                    has_red = True
+
+                elif status in ['checked', 'approver_reject']:
+                    has_yellow = True
+
+            # FINAL color decision (priority based)
+            if has_red:
                 color = 'red'
-            if approve and not draft and not checked:
+                activity_type_status = False
+            elif has_yellow:
+                color = 'yellow'
+                activity_type_status = False
+            else:
                 color = 'green'
                 activity_type_status = True
+
 
             last_update = self._get_activity_last_update(activity)
 
@@ -2845,27 +2898,60 @@ class SessionAuthenticationService(Component):
         return Response(json.dumps({'status': 'SUCCESS', 'message': 'Checklist Update'}),
                         content_type='application/json;charset=utf-8', status=200)
 
+    # @restapi.method([(["/get/material/inspection"], "POST")], auth="user")
+    # def get_material_inspection(self):
+    #     # if params contain checked_by(id) will send realted MI data otherwise all MI data.
+    #     response = {}
+    #     params = request.params
+    #     mi_data = self.env['material.inspection'].sudo().get_material_inspection(
+    #         params.get('tower_id'), params.get('mi_id'))
+    #     response['material_inspection'] = mi_data
+    #     return Response(json.dumps({'status': 'SUCCESS', 'message': 'Material Inspection Data Fetch', 'mi_data': response}),
+    #                     content_type='application/json;charset=utf-8', status=200)
+
     @restapi.method([(["/get/material/inspection"], "POST")], auth="user")
     def get_material_inspection(self):
         # if params contain checked_by(id) will send realted MI data otherwise all MI data.
         response = {}
         params = request.params
+
+        # if  not params.get('tower_id') or not params.get('mi_id'):
+        #     return Response(json.dumps({'status': 'FAILED', 'message': 'Please Send Tower Id'}),
+        #                     content_type='application/json;charset=utf-8', status=400)
+
         mi_data = self.env['material.inspection'].sudo().get_material_inspection(
             params.get('tower_id'), params.get('mi_id'))
+
         response['material_inspection'] = mi_data
         return Response(json.dumps({'status': 'SUCCESS', 'message': 'Material Inspection Data Fetch', 'mi_data': response}),
                         content_type='application/json;charset=utf-8', status=200)
 
+    # @restapi.method([(["/create/material/inspection"], "POST")], auth="user")
+    # def create_material_inspection(self):
+    #     params = request.params
+    #     #_logger.info("--params-1233333444-",params)
+    #     if not params.get('project_info_id') and not params.get('tower_id') and not params.get('checked_by'):
+    #         return Response(json.dumps({'status': 'FAILED', 'message': 'Please send project, tower id and Checked By(User) Id'}),
+    #                         content_type='application/json;charset=utf-8', status=400)
+    #     self.env['material.inspection'].sudo(
+    #     ).create_material_inspection(params)
+    #     #_logger.info("=======================================api called for material inspection")
+    #     return Response(
+    #         json.dumps(
+    #             {'status': 'SUCCESS', 'message': 'Material Inspection Created'}),
+    #         content_type='application/json;charset=utf-8', status=200)
+    
     @restapi.method([(["/create/material/inspection"], "POST")], auth="user")
     def create_material_inspection(self):
         params = request.params
-        #_logger.info("--params-1233333444-",params)
+        # _logger.info("--create_duplicate_activities--params-1233333444-",params)
         if not params.get('project_info_id') and not params.get('tower_id') and not params.get('checked_by'):
             return Response(json.dumps({'status': 'FAILED', 'message': 'Please send project, tower id and Checked By(User) Id'}),
                             content_type='application/json;charset=utf-8', status=400)
+
         self.env['material.inspection'].sudo(
         ).create_material_inspection(params)
-        #_logger.info("=======================================api called for material inspection")
+
         return Response(
             json.dumps(
                 {'status': 'SUCCESS', 'message': 'Material Inspection Created'}),
@@ -4154,13 +4240,25 @@ class SessionAuthenticationService(Component):
 
             _logger.info("NC status updated to 'submit' with ID: %s", nc.id)
 
-            # 🔥 REMOVE maker notification when maker submits NC
-            if nc.project_responsible:
-                request.env['app.notification.log'].sudo().search([
-                    ('table_id', '=', nc.id),                 # same NC
-                    ('res_user_id', '=', nc.project_responsible.id),  # maker
-                    ('status', '=', 'sent')
-                ]).unlink()
+            # 🔕 Hide previous notification from Maker side after submit
+            try:
+                app_log_obj = request.env['app.notification.log'].sudo()
+
+                logs_to_hide = app_log_obj.search([
+                    ('table_id', '=', nc.id),                 # Same NC
+                    ('res_user_id', '=', request.env.user.id),# Maker (current user)
+                    ('hide_notification', '=', False),
+                ])
+
+                if logs_to_hide:
+                    logs_to_hide.write({'hide_notification': True})
+                    _logger.info(
+                        "Maker NC notifications hidden after submit: %s",
+                        logs_to_hide.ids
+                    )
+
+            except Exception as e:
+                _logger.error("Failed to hide maker NC notifications: %s", e)
             # Send notification to project responsible
             # if nc.project_responsible:
 
@@ -4307,13 +4405,28 @@ class SessionAuthenticationService(Component):
                 'status': 'close',
                 'approver_remark': approver_remark
             })
-            # 🔥 REMOVE maker notification when maker submits NC
-            if nc.project_responsible:
-                request.env['app.notification.log'].sudo().search([
-                    ('table_id', '=', nc.id),                 # same NC
-                    ('res_user_id', '=', nc.project_responsible.id),  # maker
-                    ('status', '=', 'sent')
-                ]).unlink()
+
+            # 🔕 Hide approver notification after NC is closed
+            try:
+                app_log_obj = request.env['app.notification.log'].sudo()
+
+                logs_to_hide = app_log_obj.search([
+                    ('table_id', '=', nc.id),                     # Same NC
+                    ('res_user_id', '=', request.env.user.id),    # Current approver
+                    ('hide_notification', '=', False),
+                    ('status', '=', 'sent'),
+                ])
+
+                if logs_to_hide:
+                    logs_to_hide.write({'hide_notification': True})
+                    _logger.info(
+                        "Approver NC notifications hidden after close: %s",
+                        logs_to_hide.ids
+                    )
+
+            except Exception as e:
+                _logger.error("Failed to hide approver NC notifications: %s", e)
+
 
             for idx, img in enumerate(approver_close_images[:5]):
                 try:
@@ -4583,12 +4696,27 @@ class SessionAuthenticationService(Component):
                 'status': 'approver_reject',
                 'approver_remark': approver_remark
             })
-            # 🔥 REMOVE approver notification when approver reject NC
-            request.env['app.notification.log'].sudo().search([
-                ('table_id', '=', nc.id),          # Same NC
-                ('res_user_id', '=', request.env.user.id),  # Current approver
-                ('status', '=', 'sent')
-            ]).unlink()
+            # 🔕 Hide approver notification after NC reject (soft hide)
+            try:
+                app_log_obj = request.env['app.notification.log'].sudo()
+
+                logs_to_hide = app_log_obj.search([
+                    ('table_id', '=', nc.id),                     # Same NC
+                    ('res_user_id', '=', request.env.user.id),    # Current approver
+                    ('hide_notification', '=', False),
+                    ('status', '=', 'sent'),
+                ])
+
+                if logs_to_hide:
+                    logs_to_hide.write({'hide_notification': True})
+                    _logger.info(
+                        "Approver NC notifications hidden after reject: %s",
+                        logs_to_hide.ids
+                    )
+
+            except Exception as e:
+                _logger.error("Failed to hide approver NC notifications on reject: %s", e)
+
             # valid_images = [img for img in close_images if img and isinstance(img, (dict, str))]
 
             for idx, img in enumerate(close_images[:5]):
@@ -5205,19 +5333,6 @@ class SessionAuthenticationService(Component):
                 'error_details': str(e)
             }, 500
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     @restapi.method([(["/get/activity/common"], "POST")], auth="user")
     def get_checklist_for_common(self):
         params = request.params
@@ -5527,6 +5642,29 @@ class SessionAuthenticationService(Component):
     #     return Response(json.dumps({'status': 'SUCCESS', 'message': 'HQI eligible Towers','data': master_data}),
     #                     content_type='application/json;charset=utf-8', status=200)
     
+    # @restapi.method([(["/submit/hqi/flat"], "POST")], auth="user")
+    # def submit_hqi_flat(self):
+    #     params = request.params
+    #     flat_id = int(params.get('flat_id'))
+    #     if not flat_id:
+    #         return Response(json.dumps({'status': 'FAILED', 'message': 'Please Send Flat ID'}),
+    #                         content_type='application/json;charset=utf-8', status=201)
+    #     flat_rec = self.env['project.flats'].sudo().browse(flat_id)
+        
+    #     value = self.env['flat.site.visit'].create_first_site_visit(flat_id)
+    #     _logger.info("--value------submit_hqi_flat----------,%s",value)
+
+    #     if value == 100:
+    #         return Response(json.dumps({'status': 'Failed', 'message': 'Visit Exists'}),
+    #                     content_type='application/json;charset=utf-8', status=200)
+    #     if value == 300:
+    #         return Response(json.dumps({'status': 'Failed', 'message': 'Unit Locations does not exists'}),
+    #                     content_type='application/json;charset=utf-8', status=200)
+    #     flat_rec.hqi_state = 'progress'
+    #     flat_rec.tower_id.hqi_state = 'progress'
+    #     return Response(json.dumps({'status': 'SUCCESS', 'message': 'HQI set to progress'}),
+    #                     content_type='application/json;charset=utf-8', status=200)
+    
     @restapi.method([(["/submit/hqi/flat"], "POST")], auth="user")
     def submit_hqi_flat(self):
         params = request.params
@@ -5549,7 +5687,6 @@ class SessionAuthenticationService(Component):
         flat_rec.tower_id.hqi_state = 'progress'
         return Response(json.dumps({'status': 'SUCCESS', 'message': 'HQI set to progress'}),
                         content_type='application/json;charset=utf-8', status=200)
-    
 
     @restapi.method([(["/complete/hqi/flats"], "POST")], auth="user")
     def complete_flat_hqi(self):

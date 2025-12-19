@@ -78,7 +78,17 @@
 	    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
 	</record>
 
-        <record id="group_checker_hqi" model="res.groups">
+    <!-- <record id="group_maker_hqi" model="res.groups">
+        <field name="name">Maker HQI</field>
+        <field name="category_id" ref="custom_project_management.module_category_quality"/>
+        <field name="implied_ids" eval="[
+            (4, ref('custom_project_management.group_quality_maker')),
+            (4, ref('base.group_user'))
+        ]"/>
+    </record> -->
+
+
+    <record id="group_checker_hqi" model="res.groups">
 	    <field name="name">Checker HQI</field>
 	    <field name="category_id" ref="custom_project_management.module_category_quality"/>
 	    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
