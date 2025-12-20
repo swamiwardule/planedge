@@ -4043,6 +4043,7 @@ class SessionAuthenticationService(Component):
 
         return {'success': True, 'message': 'Notification sent successfully'} if status == 'sent' else {'error': 'Failed to send notification'}
     
+    #maker submit nc to approver 
     @restapi.method([(["/api/nc/submit"], 'POST')], auth="public")
     def close_nc(self):
         try:
@@ -4329,8 +4330,10 @@ class SessionAuthenticationService(Component):
 
         # message = f"{current_user.name} has submitted the {category} for {project_name}/{tower_name}."
         # title = f"NC {seq_no} Submitted"
-        location_text = f"{project_name}/{tower_name}/{floor_name}/{flat_name}"
+        # location_text = f"{project_name}/{tower_name}/{floor_name}/{flat_name}"
 
+        parts = [project_name, tower_name, floor_name, flat_name]
+        location_text = "/".join([p for p in parts if p])
         message = f"{current_user.name} has submitted the {category} for {location_text}."
         title = f"{current_user.name} has submitted the {category} for {location_text}."
 
