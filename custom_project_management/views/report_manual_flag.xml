@@ -136,7 +136,7 @@
                                             <!-- Display Image -->
                                            <tr>
                                                <td>
-                                                    <t t-foreach="line.project_check_line_id.image_ids" t-as="image">
+                                                    <t t-foreach="line.image_ids" t-as="image">
                                                         <tr>
                                                             <td>
                                                                 <t t-if="image.image">
