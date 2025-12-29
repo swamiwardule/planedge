@@ -110,7 +110,10 @@
                             <!-- <field name="project_activity_id" domain="[('flat_id', '=', project_flats_id), ('floor_id','=',project_floor_id)]" attrs="{'readonly': [('status', '!=', 'draft')]}"/>
                             <field name="project_act_type_id" domain="[('activity_id', '=', project_activity_id)]" attrs="{'readonly': [('status', '!=', 'draft')]}"/> -->
                             <field name="project_activity_id" attrs="{'readonly': [('status', '!=', 'draft')]}"/>
-                            <field name="project_act_type_id" attrs="{'readonly': [('status', '!=', 'draft')]}"/>
+                            <!-- <field name="project_act_type_id" attrs="{'readonly': [('status', '!=', 'draft')]}"/> -->
+                            <field name="project_act_type_id"
+                                domain="[('activity_id', '=', project_activity_id)]"
+                                attrs="{'readonly': [('status', '!=', 'draft')]}"/>
 
 
                             <!-- Conditionally show custom_checklist_item if it's not empty -->

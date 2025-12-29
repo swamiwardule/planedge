@@ -74,27 +74,60 @@ class ProjectActivityTypeName(models.Model):
     patnl_ids = fields.One2many('project.activity.type.name.line','patn_id')
     realname = fields.Char("Real Name")
     status = fields.Selection([('draft', 'Draft'), ('done', 'Done')], string="Status", default='draft')
+    activity_id = fields.Many2one(
+        'project.activity.name',
+        string="Activity"
+    )
 
     def update_name(self):
-        # crd = self.id
-        # records = self.env['project.activity.type'].search([('project_actn_id','=',crd)])
-        # _logger.info("-----1----message-player_id--------,%s",records)
-        # if self.realname:
-        #     self.name = self.realname
-        #     records.name = self.realname
-        #     self.status = 'done'
+        crd = self.id
+        records = self.env['project.activity.type'].search([('project_actn_id','=',crd)])
+        _logger.info("-----1----message-player_id--------,%s",records)
+        if self.realname:
+            self.name = self.realname
+            records.name = self.realname
+            self.status = 'done'
 
         return True
 
+# class ProjectActivityTypeNameLine(models.Model):
+#     _name = 'project.activity.type.name.line'
+#     _description = "ProjectActivityTypeNameLine"
+
+    
+ 
+#     name = fields.Char("Name")
+#     patn_id = fields.Many2one('project.activity.type.name','Activity Type Name')
+#     checklist_id = fields.Many2one('project.checklist.template','Checklist')
 class ProjectActivityTypeNameLine(models.Model):
     _name = 'project.activity.type.name.line'
     _description = "ProjectActivityTypeNameLine"
 
-    
- 
     name = fields.Char("Name")
-    patn_id = fields.Many2one('project.activity.type.name','Activity Type Name')
-    checklist_id = fields.Many2one('project.checklist.template','Checklist')
+    patn_id = fields.Many2one(
+        'project.activity.type.name', 'Activity Type Name'
+    )
+    checklist_id = fields.Many2one(
+        'project.checklist.template', 'Checklist'
+    )
+    image_ids = fields.Char("image")
+
+    def name_get(self):
+        result = []
+        for rec in self:
+            display = False
+
+            if rec.checklist_id:
+                display = rec.checklist_id.name
+            elif rec.name:
+                display = rec.name
+            elif rec.patn_id:
+                display = rec.patn_id.name
+            else:
+                display = f"Checklist Line #{rec.id}"
+
+            result.append((rec.id, display))
+        return result
 
 
 class UnitLocations(models.Model):

@@ -47,7 +47,7 @@ class ManuallySetFlag(models.Model):
     # project_check_line_id = fields.Many2one('project.checklist.line')
     project_activity_id = fields.Many2one('project.activity.name')
     project_act_type_id = fields.Many2one(
-        'project.activity.name.line',  string="Activity Type Line")
+        'project.activity.type.name',  string="Activity Type Line")
     project_check_line_id = fields.Many2one(
         'project.activity.type.name.line', string="Checklist Line"
     )
