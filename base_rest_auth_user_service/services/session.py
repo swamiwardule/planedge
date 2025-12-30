@@ -5155,7 +5155,7 @@ class SessionAuthenticationService(Component):
                 for img in nc.approver_close_image_ids:   
                     approver_close_image_urls.append({
                         'id': img.id,
-                        'url': f"/web/image/manually.set.flag.approver.close.images/{img.id}/approver_image",
+                        'url': f"/web/image/manually.set.flag.approver.close.images/{img.id}/approver_close_img",
                         'filename': img.filename or 'approver_close_img.jpg'
                     })
                 
@@ -5273,7 +5273,7 @@ class SessionAuthenticationService(Component):
             for img in nc.approver_close_image_ids:   
                 approver_close_image_urls.append({
                     'id': img.id,
-                    'url': f"/web/image/manually.set.flag.approver.close.images/{img.id}/approver_image",
+                    'url': f"/web/image/manually.set.flag.approver.close.images/{img.id}/approver_close_img",
                     'filename': img.filename or 'approver_close_img.jpg'
                 })
 
